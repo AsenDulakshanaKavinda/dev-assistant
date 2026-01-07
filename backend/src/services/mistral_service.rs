@@ -1,10 +1,10 @@
 use reqwest::Client;
 
-
+use crate::config::prompts::SYSTEM_PROMPT_CODE_EXPLAIN;
 use crate::models::mistral::{Message, MistralRequest, MistralResponse};
 
 pub async fn send_to_mistral(user_input: String) -> Result<String, String> {
-    
+
     let api_key = std::env::var("MISTRAL_API_KEY").unwrap();
 
     // create a new client
@@ -14,6 +14,10 @@ pub async fn send_to_mistral(user_input: String) -> Result<String, String> {
     let request_body = MistralRequest {
         model: "mistral-small-latest".to_string(),
         messages: vec![
+            Message {
+                role: "system".to_string(),
+                content: SYSTEM_PROMPT_CODE_EXPLAIN.to_string(),
+            },
             Message {
                 role: "user".to_string(),
                 content: user_input,

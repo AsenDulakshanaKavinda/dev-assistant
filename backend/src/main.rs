@@ -3,6 +3,8 @@ mod handlers;
 mod app;
 mod models;
 mod services;
+mod config;
+
 
 use tokio::net::TcpListener;
 
